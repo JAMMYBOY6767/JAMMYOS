@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "JammyOS",
+  "version": "2.2.0",
+  "description": "A new tab page that works like a desktop: search, shortcuts, files, a terminal, a taskbar, a clock and a Spotify now-playing card.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "tabs",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://open.spotify.com/*"
+  ]
+}

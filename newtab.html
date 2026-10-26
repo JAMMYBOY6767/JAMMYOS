@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tab</title>
+  <link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="icons/icon48.png">
+</head>
+<body>
+  <div id="bg"></div>
+  <div id="dim"></div>
+
+  <!-- Big clock -->
+  <div id="bigClock">
+    <div id="bigTime" aria-live="off">--:--</div>
+    <div id="bigDate"></div>
+  </div>
+
+  <!-- Desktop (website shortcuts) -->
+  <main id="desktop"></main>
+
+  <!-- Centre search bar -->
+  <form id="searchForm" autocomplete="off">
+    <svg class="s-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/>
+      <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <input id="q" type="text" placeholder="Search or type a web address" autofocus spellcheck="false" aria-label="Search">
+    <button id="engineBtn" type="button"></button>
+  </form>
+
+  <!-- Now playing (reads the Spotify web player tab) -->
+  <aside id="music" class="music" data-state="none">
+    <img id="m-art" class="m-art" alt="" hidden>
+    <div class="m-text">
+      <div id="m-title" class="m-title">Nothing playing</div>
+      <div id="m-artist" class="m-artist"></div>
+    </div>
+    <div class="m-controls">
+      <button id="m-prev" type="button" aria-label="Previous track">
+        <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12 18 6v12z"/></svg>
+      </button>
+      <button id="m-toggle" type="button" aria-label="Play or pause">
+        <svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+      </button>
+      <button id="m-next" type="button" aria-label="Next track">
+        <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18V6l8.5 6z"/></svg>
+      </button>
+    </div>
+    <button id="m-open" type="button">Open Spotify</button>
+  </aside>
+
+  <!-- Taskbar -->
+  <nav id="taskbar">
+    <button id="startBtn" class="tb-btn" title="Menu" aria-label="Menu">
+      <img src="icons/icon48.png" alt="" width="28" height="28">
+    </button>
+    <span class="sep"></span>
+    <div id="pins"></div>
+    <button id="addPinBtn" class="tb-btn small" title="Add to taskbar" aria-label="Add to taskbar">+</button>
+    <span class="sep"></span>
+    <button id="filesBtn" class="tb-btn" title="Files" aria-label="Files"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2Z"/></svg></button>
+    <button id="termBtn" class="tb-btn" title="Terminal" aria-label="Terminal"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7.5 10l3 2.5-3 2.5M13 15.5h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button id="spBtn" class="tb-btn" title="Open Spotify" aria-label="Open Spotify">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6Z"/></svg>
+    </button>
+    <button id="setBtn" class="tb-btn" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M19.4 13a7.7 7.7 0 0 0 0-2l2.1-1.6a.5.5 0 0 0 .1-.6l-2-3.5a.5.5 0 0 0-.6-.2l-2.5 1a7.3 7.3 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.4h-4a.5.5 0 0 0-.5.4l-.4 2.6a7.3 7.3 0 0 0-1.7 1l-2.5-1a.5.5 0 0 0-.6.2l-2 3.5a.5.5 0 0 0 .1.6L4.6 11a7.7 7.7 0 0 0 0 2l-2.1 1.6a.5.5 0 0 0-.1.6l2 3.5c.1.2.4.3.6.2l2.5-1c.5.4 1.1.7 1.7 1l.4 2.6c0 .2.2.4.5.4h4c.3 0 .5-.2.5-.4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1c.2.1.5 0 .6-.2l2-3.5a.5.5 0 0 0-.1-.6L19.4 13ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg>
+    </button>
+    <span class="sep"></span>
+    <button id="netBtn" class="tb-btn" title="Network" aria-label="Network"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <circle class="wf dot" cx="12" cy="19" r="1.7"/>
+        <path class="wf" d="M8.6 15.4a5.2 5.2 0 0 1 6.8 0"/>
+        <path class="wf" d="M5.6 12.2a9.6 9.6 0 0 1 12.8 0"/>
+        <path class="wf" d="M2.6 9a14 14 0 0 1 18.8 0"/>
+        <path class="slash" d="M4 4l16 16"/>
+      </svg></button>
+    <div id="tbClock"><div id="tbTime">--:--</div><div id="tbDate"></div></div>
+  </nav>
+
+  <!-- Settings panel -->
+  <aside id="settings" hidden>
+    <header>
+      <h2>Settings</h2>
+      <button id="setClose" class="icon-btn" aria-label="Close settings">&times;</button>
+    </header>
+
+    <h3>Clock</h3>
+    <label class="row"><span>Big clock</span><input type="checkbox" data-key="showClock"></label>
+    <label class="row"><span>Show date</span><input type="checkbox" data-key="showDate"></label>
+    <label class="row"><span>24-hour time</span><input type="checkbox" data-key="hour24"></label>
+    <label class="row"><span>Show seconds</span><input type="checkbox" data-key="seconds"></label>
+    <label class="row"><span>Clock position</span>
+      <select data-key="clockPos">
+        <option value="center">Above search</option>
+        <option value="corner">Top right</option>
+      </select>
+    </label>
+
+    <h3>Search</h3>
+    <label class="row"><span>Search bar</span><input type="checkbox" data-key="showSearch"></label>
+    <label class="row"><span>Search engine</span>
+      <select data-key="engine">
+        <option value="brave">Brave Search</option>
+        <option value="google">Google</option>
+        <option value="ddg">DuckDuckGo</option>
+        <option value="bing">Bing</option>
+      </select>
+    </label>
+
+    <h3>Music</h3>
+    <label class="row"><span>Now-playing card</span><input type="checkbox" data-key="showMusic"></label>
+
+    <h3>Look</h3>
+    <label class="row"><span>Accent colour</span><input type="color" data-key="accent"></label>
+    <label class="row"><span>Corner roundness</span><input type="range" min="0" max="40" data-key="radius"></label>
+    <label class="row"><span>Glass blur</span><input type="range" min="0" max="40" data-key="blur"></label>
+    <label class="row"><span>Glass opacity</span><input type="range" min="10" max="90" data-key="glass"></label>
+    <label class="row"><span>Shortcut size</span><input type="range" min="44" max="72" data-key="icon"></label>
+    <label class="row"><span>Shortcut names</span><input type="checkbox" data-key="showLabels"></label>
+
+    <h3>Wallpaper</h3>
+    <div id="presets"></div>
+    <label class="row"><span>Solid colour</span><input type="color" id="bgColor"></label>
+    <div class="row">
+      <button id="uploadBtn" type="button">Upload image</button>
+      <button id="clearImgBtn" type="button">Remove image</button>
+      <input id="bgFile" type="file" accept="image/*" hidden>
+    </div>
+    <form id="bgUrlForm" class="row">
+      <input id="bgUrl" type="text" placeholder="Or paste an image address">
+      <button type="submit">Set</button>
+    </form>
+    <label class="row"><span>Dim</span><input type="range" min="0" max="90" data-key="dim"></label>
+    <label class="row"><span>Wallpaper blur</span><input type="range" min="0" max="30" data-key="bgBlur"></label>
+
+    <h3>Your data</h3>
+    <div class="row">
+      <button id="exportBtn" type="button">Export backup</button>
+      <button id="importBtn" type="button">Import backup</button>
+      <button id="resetBtn" type="button" class="danger">Reset</button>
+      <input id="importFile" type="file" accept="application/json" hidden>
+    </div>
+  </aside>
+
+  <!-- Add / edit website dialog -->
+  <dialog id="siteDialog">
+    <form id="siteForm">
+      <h2 id="siteTitle">Add website</h2>
+      <label>Name<input id="siteName" type="text" placeholder="YouTube" autocomplete="off"></label>
+      <label>Web address<input id="siteUrl" type="text" placeholder="youtube.com" autocomplete="off" required></label>
+      <p id="siteErr" class="err" hidden>That doesn't look like a web address. Try something like youtube.com.</p>
+      <div class="actions">
+        <button type="button" id="siteCancel">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Files -->
+  <section id="explorer" class="win" hidden tabindex="-1" aria-label="Files">
+    <header id="fxTitle" class="win-bar">
+      <span class="win-name">Files</span>
+      <div class="win-btns">
+        <button id="fxMax" type="button" aria-label="Maximise Files"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></button>
+        <button id="fxClose" type="button" class="close" aria-label="Close Files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+    </header>
+    <div class="fx-body">
+      <aside class="fx-side"><div id="fxPlaces"></div></aside>
+      <div class="fx-right">
+        <div class="fx-tools">
+          <button id="fxBack" type="button" title="Back" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button id="fxUp" type="button" title="Up one folder" aria-label="Up one folder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 12l6-6 6 6"/></svg></button>
+          <nav id="fxCrumbs" class="fx-crumbs" aria-label="Current folder"></nav>
+          <button id="fxNewFile" type="button" title="New document" aria-label="New document"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7Z"/><path d="M12.5 11v6M9.5 14h6"/></svg></button>
+          <button id="fxNewFolder" type="button" title="New folder" aria-label="New folder"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M12 11v5M9.5 13.5h5"/></svg></button>
+          <button id="fxUpload" type="button" title="Import documents from your computer" aria-label="Import documents"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V5M7 9l5-5 5 5M5 19h14"/></svg></button>
+          <button id="fxView" type="button" title="Show as list" aria-label="Switch view"><svg viewBox="0 0 24 24" aria-hidden="true"></svg></button>
+          <input id="fxFile" type="file" multiple hidden>
+        </div>
+        <div id="fxMain" class="fx-main">
+          <div id="fxGrid" class="fx-grid"></div>
+          <div id="fxEmpty" class="fx-empty" hidden></div>
+        </div>
+        <div id="fxStatus" class="fx-status" aria-live="polite"></div>
+        <div id="fxViewer" class="fx-viewer" hidden>
+          <div class="fx-vbar">
+            <button id="fxVBack" type="button" title="Back to files" aria-label="Back to files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <span id="fxVTitle"></span>
+            <span id="fxVState" aria-live="polite"></span>
+            <button id="fxVDown" type="button" title="Download a copy" aria-label="Download a copy"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></button>
+          </div>
+          <div id="fxVBody" class="fx-vbody"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terminal -->
+  <section id="terminal" class="win" hidden tabindex="-1" aria-label="Terminal">
+    <header id="tmTitle" class="win-bar">
+      <span class="win-name">Terminal</span>
+      <div class="win-btns">
+        <button id="tmMax" type="button" aria-label="Maximise Terminal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></button>
+        <button id="tmClose" type="button" class="close" aria-label="Close Terminal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+    </header>
+    <div id="tmScreen" class="tm-screen">
+      <div id="tmOut"></div>
+      <form id="tmForm" onsubmit="return false"><span id="tmPrompt"></span><input id="tmIn" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Command"></form>
+    </div>
+  </section>
+
+  <!-- Name and confirm dialog -->
+  <dialog id="askDialog">
+    <form id="askForm">
+      <h2 id="askTitle"></h2>
+      <p id="askMsg" class="ask-msg" hidden></p>
+      <input id="askInput" class="ask-input" type="text" autocomplete="off" hidden>
+      <div class="actions">
+        <button type="button" id="askCancel">Cancel</button>
+        <button type="submit" id="askOk" class="primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="menu" hidden></div>
+
+  <script src="wm.js"></script>
+  <script src="fs.js"></script>
+  <script src="net.js"></script>
+  <script src="app.js"></script>
+  <script src="files.js"></script>
+  <script src="terminal.js"></script>
+</body>
+</html>
